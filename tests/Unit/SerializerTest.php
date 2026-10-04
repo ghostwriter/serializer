@@ -47,14 +47,14 @@ final class SerializerTest extends AbstractTestCase
             'boolean' => true,
             'siblings' => $siblings,
             stdClass::class => [
-                'class' => stdClass::class,
-                'properties' => [],
+                Serializer::CLASS_NAME => stdClass::class,
+                Serializer::CLASS_ARGUMENTS => [],
             ],
         ];
 
         $payload = [
-            'class' => Person::class,
-            'properties' => $properties,
+            Serializer::CLASS_NAME => Person::class,
+            Serializer::CLASS_ARGUMENTS => $properties,
         ];
 
         $serializedJson = $serializer->serialize($person);

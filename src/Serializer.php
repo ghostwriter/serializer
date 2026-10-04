@@ -38,6 +38,10 @@ use function sprintf;
  */
 final readonly class Serializer implements SerializerInterface
 {
+    public const string CLASS_ARGUMENTS = '__ARGUMENTS__';
+
+    public const string CLASS_NAME = '__CLASS__';
+
     public function __construct(
         private ContainerInterface $container,
     ) {}
@@ -65,13 +69,15 @@ final readonly class Serializer implements SerializerInterface
     {
         $payload = $this->decode($json);
 
-        $class = $payload['class'] ?? throw new ShouldNotHappenException('Missing class in payload');
+        $class = $payload[self::CLASS_NAME] ?? throw new ShouldNotHappenException('Missing class in payload');
 
         if (! class_exists($class)) {
             throw new ShouldNotHappenException("Class {$class} does not exist");
         }
 
-        $arguments = $payload['properties'] ?? throw new ShouldNotHappenException('Missing properties in payload');
+        $arguments = $payload[self::CLASS_ARGUMENTS] ?? throw new ShouldNotHappenException(
+            'Missing properties in payload'
+        );
 
         if (! is_array($arguments)) {
             throw new ShouldNotHappenException('Arguments must be an array');
@@ -85,11 +91,10 @@ final readonly class Serializer implements SerializerInterface
      *
      * @param object $object the object to serialize
      *
-     * @return string the JSON representation of the object
-     *
      * @throws JsonException
-     *
      * @throws SerializerExceptionInterface if the object cannot be serialized
+     *
+     * @return string the JSON representation of the object
      */
     #[Override]
     public function serialize(object $object): string
@@ -120,16 +125,16 @@ final readonly class Serializer implements SerializerInterface
                 continue;
             }
 
-            if (! isset($value['class'], $value['properties'])) {
+            if (! isset($value[self::CLASS_NAME], $value[self::CLASS_ARGUMENTS])) {
                 continue;
             }
 
-            $class = $value['class'];
+            $class = $value[self::CLASS_NAME];
             if (! class_exists($class)) {
                 continue;
             }
 
-            $properties = $value['properties'];
+            $properties = $value[self::CLASS_ARGUMENTS];
             if (! is_array($properties)) {
                 continue;
             }
@@ -332,8 +337,8 @@ final readonly class Serializer implements SerializerInterface
         }
 
         return [
-            'class' => $class,
-            'properties' => $properties,
+            self::CLASS_NAME => $class,
+            self::CLASS_ARGUMENTS => $properties,
         ];
     }
 

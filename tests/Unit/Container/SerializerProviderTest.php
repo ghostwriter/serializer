@@ -10,7 +10,6 @@ use Ghostwriter\Container\Service\Provider\AbstractProvider;
 use Ghostwriter\Serializer\Container\SerializerProvider;
 use Ghostwriter\Serializer\Serializer;
 use Ghostwriter\Serializer\SerializerInterface;
-use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Unit\AbstractTestCase;
 use Throwable;
@@ -20,7 +19,6 @@ use function is_a;
 #[CoversClass(SerializerProvider::class)]
 final class SerializerProviderTest extends AbstractTestCase
 {
-
     /** @throws Throwable */
     public function testExtendsAbstractProvider(): void
     {
