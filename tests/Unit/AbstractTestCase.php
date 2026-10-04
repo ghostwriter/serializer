@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-abstract class AbstractTestCase extends TestCase {}
+abstract class AbstractTestCase extends MockeryTestCase {}

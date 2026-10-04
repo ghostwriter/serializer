@@ -6,9 +6,9 @@
     "description": "Minor release – targeting 0.1.x branch (semantic version: 0.1.0)"
     "state": "open"
 "repository":
-  "name": "wip"
-  "description": "[WIP] Here be dragons"
-  "homepage": "https://github.com/ghostwriter/wip"
+  "name": "serializer"
+  "description": "Serialize and Deserialize PHP objects to JSON"
+  "homepage": "https://github.com/ghostwriter/serializer"
   "default_branch": "0.1.x"
   "allow_auto_merge": true
   "allow_forking": true

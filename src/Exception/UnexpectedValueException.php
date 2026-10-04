@@ -5,6 +5,5 @@ declare(strict_types=1);
 namespace Ghostwriter\Serializer\Exception;
 
 use Ghostwriter\Serializer\SerializerExceptionInterface;
-use LogicException;
 
-final class ShouldNotHappenException extends LogicException implements SerializerExceptionInterface {}
+final class UnexpectedValueException extends \UnexpectedValueException implements SerializerExceptionInterface {}
